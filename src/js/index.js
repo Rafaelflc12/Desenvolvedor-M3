@@ -112,7 +112,7 @@ class Products {
     }
 
     allFilters(colorFilter, tamFilter, priceFilter) {
-        let allFilter = [];
+        
         let colors = []
         let sizes = []
         let precos = []
