@@ -102,8 +102,8 @@ document.addEventListener("click", (e) => {
 
 
 class Products {
-    constructor(colorFilter, id, tamFilter, priceFilter, allFilter) {
-        this.renderProducts(colorFilter||tamFilter || priceFilter);
+    constructor(colorFilter, id, tamFilter, priceFilter, allFilter, newproducts) {
+        this.renderProducts(colorFilter||tamFilter || priceFilter || newproducts);
         this.filtrocor(products);
         this.filtroTam(products);
         this.allFilters(colorFilter|| tamFilter|| priceFilter);
@@ -113,21 +113,43 @@ class Products {
         this.buy(id);
     }
 
-    ordenar(products) {
+    ordenar(products, aDate, bDate) {
+        let arrprod = [...products]
 document.addEventListener('click', e =>  {
     let click = e.target;
-        if(click.value =="maior-preco"){
-        const maiorList = products.sort((a, b) => a.price > b.price ? true : false)
-                this.renderProducts([maiorList]);
-        }
-        if(click.value == "menor-preco") {
-            let menorlist = products.sort((a, b) => a.price < b.price ? true : false)
-            this.renderProducts([...menorlist]);
-        }
-        if(click.value == "mais-recente") {
-            const recenteList = new Date(products.date)
-            products.sort((a, b) => a.recenteList.getTime() - b.recenteList.getTime())
-        }
+    let menorproducts =[]
+    let recente =[]
+    let maiorproducts =[]
+    
+    
+    recente = arrprod.sort((a, b) => {
+        
+               return a.date.localeCompare(b.date)
+               
+            });
+    
+    console.log([recente])
+            menorproducts = arrprod.sort((a, b) => {
+        return a.price -  b.price;
+    });
+            maiorproducts = arrprod.sort((a, b) => {
+        return b.price -  a.price;
+    });
+    
+   
+   
+    if(click.value =='menor-preco') {
+        this.renderProducts([...menorproducts])
+    }
+    if(click.value =='maior-preco') {
+        this.renderProducts([...maiorproducts])
+    }
+    
+        
+    if (click.value == 'mais-recente') {
+        this.renderProducts([...recente])
+        
+    }
         
     })
     }
@@ -220,7 +242,7 @@ document.addEventListener('click', e =>  {
                 
                 
               
-            console.log(clickes)
+            
             this.renderProducts(clickes);  
             });
             
@@ -235,8 +257,11 @@ document.addEventListener('click', e =>  {
             let click = e.target;
             let checkboxes = document.querySelectorAll("tamanho");
 
+            let clickes = []
+            if(checkboxes.checked) {
+                clickes.push(tamFilter);
 
-            
+            }
 
             let tamFilter = [];
 
@@ -246,7 +271,7 @@ document.addEventListener('click', e =>  {
 
         
 
-            this.renderProducts([...tamFilter]);
+            this.renderProducts([...clickes]);
 
         })
 

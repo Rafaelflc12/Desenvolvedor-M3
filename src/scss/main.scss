@@ -375,8 +375,8 @@ main{
     display: grid;
     position: relative;
     width: 100%;
-    
-    grid-template-columns:  repeat(auto-fill, 15rem);
+    left: 5.2em;
+    grid-template-columns:  repeat(auto-fit, 15rem);
     grid-template-rows: 1fr 1fr ;
     text-align: center;
     grid-gap: 1rem;
@@ -389,9 +389,9 @@ main{
    flex-direction: column;
    
     display: flex;
-    width: 100%;
+    max-width: 100%;
    
-    
+    justify-items: center;
     text-align: center;
   }
   
@@ -494,6 +494,9 @@ footer {
     html { 
         font-size: 50%;
     }
+    .products {
+        left: 16rem;
+    }
     
 }
 @media (max-width: 526px) {
@@ -504,8 +507,9 @@ footer {
         
     }
     main {
-        max-width: 90%;
+        max-width: 80%;
         top: 3rem;
+        justify-items: center;
     }
     
     .cores-mobile, 
@@ -529,7 +533,12 @@ footer {
         
 
      }
-     
+     .produtoes {
+         width: 50vw;
+     }
+     .products {
+         left: 6rem;
+     }
     
     .btn-filtra-ordenar {
         display: flex;
