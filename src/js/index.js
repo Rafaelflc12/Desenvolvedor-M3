@@ -108,7 +108,28 @@ class Products {
         this.filtroTam(products);
         this.allFilters(colorFilter|| tamFilter|| priceFilter);
         this.filtroPrice(products)
+        
+        this.ordenar(products);
         this.buy(id);
+    }
+
+    ordenar(products) {
+document.addEventListener('click', e =>  {
+    let click = e.target;
+        if(click.value =="maior-preco"){
+        const maiorList = products.sort((a, b) => a.price > b.price ? true : false)
+                this.renderProducts([maiorList]);
+        }
+        if(click.value == "menor-preco") {
+            let menorlist = products.sort((a, b) => a.price < b.price ? true : false)
+            this.renderProducts([...menorlist]);
+        }
+        if(click.value == "mais-recente") {
+            const recenteList = new Date(products.date)
+            products.sort((a, b) => a.recenteList.getTime() - b.recenteList.getTime())
+        }
+        
+    })
     }
 
     allFilters(colorFilter, tamFilter, priceFilter) {
@@ -116,37 +137,9 @@ class Products {
         let colors = []
         let sizes = []
         let precos = []
-        precos = document.getElementsByName('price')
-        colors = document.getElementsByName('cor');
-        sizes = document.getElementsByName('tamanho');
-    
-        for(let prec of precos) {
-            if(prec.checked) {
-                this.renderProducts(priceFilter);
-            }else {
-                prec.checked = false;
-
-            }
-        }
-
-        for(let size of sizes) {
-            if(size.checked) {
-                this.renderProducts(tamFilter);
-            }else {
-                size.checked =false;
-
-            }
-        }
-
-        for(let color of colors){
-            if(color.checked) {
-                this.renderProducts(colorFilter)
-            }else {
-                
-                color.checked = false;
-            }
-        }
-
+        
+        
+        
         
         
     }
@@ -210,24 +203,27 @@ class Products {
     }
 
     filtrocor(products) {
-         let active = false;
+         let active = true;
  let checkboxes = document.getElementsByName('cor');
            
            let colorFilter = [];
        let clickes = []
-        clickes = document.addEventListener('click', e => {
+        document.addEventListener('click', e => {
             let items = products;
             let click = e.target;
-           
-          
-        
+           for(let check of checkboxes) {
+                check = active;
+               clickes = [...colorFilter]
+           }
             colorFilter= items.filter(produto =>
                 produto.color.includes(`${click.value}`));
+                
+                
+              
+            console.log(clickes)
+            this.renderProducts(clickes);  
+            });
             
-               
-           
-           this.renderProducts([...colorFilter]);
-        });
         
 
     }
@@ -299,7 +295,7 @@ class Products {
             
             
             
-            console.log(priceFilter)   
+               
         });
         
     }
