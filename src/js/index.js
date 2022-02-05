@@ -18,7 +18,7 @@ const togglePrecos = asideFilterToggle.querySelector(".faixa-preco");
 document.addEventListener("click", (e) => {
     let click = e.target;
 
-
+//CONTROLE DE CLICKES PARA EVENTOS CSS
 
 
 
@@ -74,7 +74,7 @@ document.addEventListener("click", (e) => {
 
 
 
-
+// CLICKES DO MENU ORDENAR
 
 
 
@@ -102,16 +102,18 @@ document.addEventListener("click", (e) => {
 
 
 class Products {
-    constructor(colorFilter, id, tamFilter, priceFilter, allFilter, newproducts) {
-        this.renderProducts(colorFilter||tamFilter || priceFilter || newproducts);
+    constructor(colorFilter, tamFilter, priceFilter, allFilter, produtoGeted) {
+        this.renderProducts(colorFilter||tamFilter || priceFilter || filter || produtoGeted);
         this.filtrocor(products);
         this.filtroTam(products);
         this.allFilters(colorFilter|| tamFilter|| priceFilter);
         this.filtroPrice(products)
         
         this.ordenar(products);
-        this.buy(id);
+        //this.buy(products);
     }
+// ORDENAÇÃO -------------
+
 
     ordenar(products, aDate, bDate) {
         let arrprod = [...products]
@@ -122,13 +124,14 @@ document.addEventListener('click', e =>  {
     let maiorproducts =[]
     
     
-    recente = arrprod.sort((a, b) => {
-        
-               return a.date.localeCompare(b.date)
+/**    recente = arrprod.sort((a, b) => {NÃO FUNCIONA 
+                let aDate = new Date(a.date)
+                let bDate = new Date(b.date)
+               return aDate.date.localeCompare(bDate.date)
                
             });
     
-    console.log([recente])
+ */   
             menorproducts = arrprod.sort((a, b) => {
         return a.price -  b.price;
     });
@@ -146,25 +149,29 @@ document.addEventListener('click', e =>  {
     }
     
         
-    if (click.value == 'mais-recente') {
+    if (click.value == 'mais-recente') {/**NÃO FUNCIONA */
         this.renderProducts([...recente])
         
     }
         
     })
     }
-
-    allFilters(colorFilter, tamFilter, priceFilter) {
-        
+// TENTATIVA DE GERENCIAMENTO DOS FILTROS
+    allFilters(colorFilter , tamFilter, all) {
+        let active = true;
         let colors = []
+        let total = []
         let sizes = []
         let precos = []
+        let checkboxes = document.getElementsByName('cor');
+        // all = JSON.parse(localStorage.getItem('produtos')) || [];
         
-        
-        
-        
+      
         
     }
+
+    // FUNÇÃO RENDERIZADORA
+
 
     renderProducts(Filter) {
         let itens = [...Filter];
@@ -184,7 +191,7 @@ document.addEventListener('click', e =>  {
                 <h1 id="product-h1">${item.name}</h1>
                 <h2 id="product-h2">R$ ${item.price.toFixed(2)}</h3>
                 <h3 id="product-h1">até ${item.parcelamento[0]}x de R$ ${parcela.toFixed(2)}</h1>
-                <input type="button" class="buy" value="Comprar" onclick="buy(${item.id})"></div>
+                <input type="button" class="buy" value="comprar" ${item.id}></div>
                 `;
             listaProduto.push(produto)
 
@@ -207,48 +214,81 @@ document.addEventListener('click', e =>  {
 
 
 
-    buy(id) {
-
-        let ids = id;
-        let totalProd = 0;
+ /**   buy(products) {
+ Não Funciona 
+        const btn = document.querySelectorAll('buy')
+        btn.addEventListener('change', (e) => {
+            let click = e.target;
+            let comprar = false;
+            if(click.value =='comprar') {
+                comprar = !comprar;
+                let bought = products.item.id;
+                let cart = []
+                cart = bought
+                const noCart = JSON.stringify(cart);
+                localStorage.setItem('noCarrinho', noCart);
+                
+             }else {
+                 comprar;
+                 localStorage.removeItem('noCarrinho', cart)
+             }
+             return;
+        })
 
 
         let bag = document.querySelector('.bag-counter--span');
 
 
-        ids = 1;
-        totalProd += ids;
-        bag.innerHTML = totalProd;
+        
+        bag.innerHTML = cart.length;
 
 
 
     }
 
+
+*/
+
+// FILTRAGEM DE CORES
     filtrocor(products) {
-         let active = true;
- let checkboxes = document.getElementsByName('cor');
-           
-           let colorFilter = [];
-       let clickes = []
+         
+        let prodnovo= []
+        let all = []
+        
+        let colorFilter = [];
+        
+        let produtoGeted = []
         document.addEventListener('click', e => {
             let items = products;
             let click = e.target;
-           for(let check of checkboxes) {
-                check = active;
-               clickes = [...colorFilter]
-           }
+           
             colorFilter= items.filter(produto =>
                 produto.color.includes(`${click.value}`));
                 
                 
               
-            
-            this.renderProducts(clickes);  
+                
+                
+                produtoGeted = JSON.parse(localStorage.getItem('produto')) || [];
+                all.push(click.value, produtoGeted);
+                
+                
+                console.log(produtoGeted)
+                
+                localStorage.setItem('produto', JSON.stringify(all));
+                
+               
+               
+               
+                this.renderProducts(...produtoGeted);  
             });
             
         
 
     }
+
+
+    //FILTRAGEM DE TAMANHOS
     filtroTam(products) {
 
 
@@ -268,16 +308,16 @@ document.addEventListener('click', e =>  {
             tamFilter = items.filter(produto =>
                 produto.size.includes(`${click.value}`));
 
-
+                
         
 
-            this.renderProducts([...clickes]);
+            this.allFilters(clickes);
 
         })
 
     }
 
-
+//FILTRAGEM DE PREÇOS
 
 
     filtroPrice(products) {
