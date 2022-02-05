@@ -1,5 +1,14 @@
 ### Nota
-Agradeço pela oportunidade. sinto-me honrado em ter essa chance de fazer o teste. Venho explicar que não completei o teste, faltou alguns detalhes css, e o js precisa do código dos filtros no qual falhei em programar. Apesar do prazo ser mais do que suficiente, tive alguns imprevisto e não pude aproveitar. Com certeza posteriormente completarei esse teste. Peço uma oportunidade para aprender mais com um treinamento. 
+##### mail: [rafaelflcolonese@hotmail.com]
+##### phone: [22996066662]
+### MUITO OBRIGADO PELA OPORTUNIDADE. DESCULPE A DEMORA
+
+### AVISOS -- BOTÃO "CARREGAR MAIS" NÃO ESTÁ FUNCIONANDO
+### -- FILTRO PREÇO E ORDENAR POR NÃO FUNCIONAM.
+### -- FILTROS CORES E TAMANHOS FUNCIONAM CORRETAMENTE.
+### CSS PRECISA DE MUITAS MELHORAS
+
+// Agradeço pela oportunidade. sinto-me honrado em ter essa chance de fazer o teste. Venho explicar que não completei o teste, faltou alguns detalhes css, e o js precisa do código dos filtros no qual falhei em programar. Apesar do prazo ser mais do que suficiente, tive alguns imprevisto e não pude aproveitar. Com certeza posteriormente completarei esse teste. Peço uma oportunidade para aprender mais com um treinamento. 
 
 ### guia para execução
 
@@ -14,5 +23,4 @@ O dar start no server e nos processos para desenvolvimento é necessário rodar 
 
 
 
-##### mail: [rafaelflcolonese@hotmail.com]
-##### phone: [22996066662]
+

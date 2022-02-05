@@ -20,7 +20,7 @@ html {
 
 body {
     height: auto;
-    max-width: 99vw;
+    width: 99vw;
    
     text-rendering: optimizeLegibility;
     margin: 0;
@@ -364,7 +364,7 @@ main{
     display: grid;
     position: relative;
     width: 100%;
-    max-width: 70%;
+    max-width: 72%;
     margin-left: auto;
     bottom: 50em;
     
@@ -376,7 +376,7 @@ main{
     position: relative;
     width: 100%;
     left: 5.2em;
-    grid-template-columns:  repeat(auto-fit, 15rem);
+    grid-template-columns:  repeat(auto-fit, 25rem);
     grid-template-rows: 1fr 1fr ;
     text-align: center;
     grid-gap: 1rem;
@@ -385,7 +385,7 @@ main{
     
   }
   
-  .produtoes{
+  .produtos{
    flex-direction: column;
    
     display: flex;
@@ -395,7 +395,7 @@ main{
     text-align: center;
   }
   
-  .produtoes:hover{
+  .produtos:hover{
     background-color: #a8a8a82a;
   }
   
@@ -423,7 +423,7 @@ main{
   .buy{
     min-width: 200px;
     cursor: pointer;
-    width: 15vw;
+    width: 100%;
     height: 6vh;
     background-color: #000;
     color: #fff;
@@ -465,7 +465,7 @@ footer {
     
     height: 4rem;
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
     background-color: black;
     color: white;
     text-align: center;
@@ -533,11 +533,11 @@ footer {
         
 
      }
-     .produtoes {
+     .produtos {
          width: 50vw;
      }
      .products {
-         left: 6rem;
+        left: 6rem;
      }
     
     .btn-filtra-ordenar {

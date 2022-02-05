@@ -1,6 +1,6 @@
 
 let show = true;
-import { products } from "../../db.json";
+import{ products}  from "../../db.json";
 
 const asideFilterToggle = document.querySelector('aside');
 const orderToggle = document.querySelector('.order-mobile');
@@ -101,17 +101,34 @@ document.addEventListener("click", (e) => {
 })
 
 
-
+// MANIPULAÇÃO DOS PRODUTOS -- FILTROS E BOTÃO BUY
 
 
 const coresEle = document.getElementById("cores")
+const tamanhosEle = document.getElementById("tamanhos")
+const priceEle = document.getElementById("faixa-de-preco")
+
+
 
 const allProds = document.getElementsByClassName("produtos");
 const allBuy = document.getElementsByClassName("buy");
 const html = document.querySelector('.products');
 
 function addToCart(e){
-    const savedCartProducts = JSON.parse(localStorage.getItem("cartProducts"));
+    const savedCartProducts = JSON.parse(localStorage.getItem("cartProducts")) || [];
+    
+    let counterhtml = document.querySelector('.bag-counter--span')
+    
+    
+    // ALTERA NÚMERO DA BAG BASEADO NOS CLICKS DOS BOTOES
+    let counter =[]
+    if(savedCartProducts.length !== 0) {
+            
+           counter  = savedCartProducts.length; 
+            counterhtml.innerHTML = counter;
+        }
+        console.log(counter)
+
     if(savedCartProducts && !savedCartProducts.find((prod) => prod.id == e.target.id)){
         
         const cartProduct = products.find((prod) => prod.id == e.target.id);
@@ -132,8 +149,30 @@ function addToCart(e){
 function addBuyEvent(){
     for(let item of allBuy){
         item.addEventListener("click", addToCart);
+        
     }  
 };
+
+function ordenar(products) { // NÃO ESTÁ FUNCIONANDO
+
+    
+    document.addEventListener('click', e => {
+        let click = e.target;
+        
+        if(click.value =="menor-preco") {
+            products.sort((a, b) =>{
+                a.price - b.price;
+            })
+        }
+        if(click.value =="maior-preco") {
+            products.sort((a, b) => {
+                b.price - a.price;
+            })
+        }
+    }
+    )
+}
+
 
 function renderizarProdutosIniciais(){
 
@@ -154,7 +193,9 @@ function renderizarProdutosIniciais(){
     });
 
     html.innerHTML = produto;
-
+    
+    
+    ordenar(products);
     addBuyEvent()
 }
 
@@ -180,7 +221,7 @@ function filtrarCor(){
             if(corAtiva.includes(prod.color)){
                 let parcela = prod.price / prod.parcelamento[0];
                 produto += `
-                    <div class="productoes">
+                    <div class="productos">
                         <img src= ${prod.image}></img>
                         <h1 id="product-h1">${prod.name}</h1>
                         <h2 id="product-h2">R$ ${prod.price.toFixed(2)}</h3>
@@ -196,7 +237,109 @@ function filtrarCor(){
             let parcela = prod.price / prod.parcelamento[0];
             console.log("22222222");
             produto += `
-                <div class="productoes">
+                <div class="productos">
+                    <img src= ${prod.image}></img>
+                    <h1 id="product-h1">${prod.name}</h1>
+                    <h2 id="product-h2">R$ ${prod.price.toFixed(2)}</h3>
+                    <h3 id="product-h1">até ${prod.parcelamento[0]}x de R$ ${parcela.toFixed(2)}</h1>
+                    <input type="button" class="buy" value="comprar" ${prod.id}>
+                </div>
+            `;
+        })
+    }
+  
+    html.innerHTML = produto;
+}
+function filtrartamanho(){
+    const opcoesTam = document.getElementsByName("tamanho");
+
+    const tamanhoAtiva = [];
+   
+    opcoesTam.forEach(element => {
+        if(element.checked){
+            
+            tamanhoAtiva.push(element.value);
+        } 
+    });
+    
+
+    let produto = '';
+
+    if(tamanhoAtiva.length != 0){
+        products.forEach((prod) => {
+
+            if(tamanhoAtiva.includes(prod.size[length])){
+                let parcela = prod.price / prod.parcelamento[0];
+                produto += `
+                    <div class="productos">
+                        <img src= ${prod.image}></img>
+                        <h1 id="product-h1">${prod.name}</h1>
+                        <h2 id="product-h2">R$ ${prod.price.toFixed(2)}</h3>
+                        <h3 id="product-h1">até ${prod.parcelamento[0]}x de R$ ${parcela.toFixed(2)}</h1>
+                        <input type="button" class="buy" value="comprar" id="${prod.id}">
+                    </div>
+                `;
+            }
+        })
+    } else {
+        products.forEach((prod) => {
+            
+            let parcela = prod.price / prod.parcelamento[0];
+            console.log("22222222");
+            produto += `
+                <div class="productos">
+                    <img src= ${prod.image}></img>
+                    <h1 id="product-h1">${prod.name}</h1>
+                    <h2 id="product-h2">R$ ${prod.price.toFixed(2)}</h3>
+                    <h3 id="product-h1">até ${prod.parcelamento[0]}x de R$ ${parcela.toFixed(2)}</h1>
+                    <input type="button" class="buy" value="comprar" ${prod.id}>
+                </div>
+            `;
+        })
+    }
+  
+    html.innerHTML = produto;
+}
+function filtrarprice(){ // NÃO ESTÁ FUNCIONANDO
+    const opcoesprice = document.getElementsByName("price");
+
+    const priceAtiva = [];
+   
+    opcoesprice.forEach(element => {
+
+        if(element.checked){
+            priceAtiva.push(element.value)
+            
+        } 
+        console.log(priceAtiva)
+    });
+
+    let produto = '';
+
+    if(priceAtiva.length != 0){
+        products.forEach((prod) => {
+            
+            
+            if(priceAtiva.includes(prod.price)){
+                let parcela = prod.price / prod.parcelamento[0];
+                produto += `
+                    <div class="productos">
+                        <img src= ${prod.image}></img>
+                        <h1 id="product-h1">${prod.name}</h1>
+                        <h2 id="product-h2">R$ ${prod.price.toFixed(2)}</h3>
+                        <h3 id="product-h1">até ${prod.parcelamento[0]}x de R$ ${parcela.toFixed(2)}</h1>
+                        <input type="button" class="buy" value="comprar" id="${prod.id}">
+                    </div>
+                `;
+            }
+        })
+    } else {
+        products.forEach((prod) => {
+            
+            let parcela = prod.price / prod.parcelamento[0];
+            console.log("22222222");
+            produto += `
+                <div class="productos">
                     <img src= ${prod.image}></img>
                     <h1 id="product-h1">${prod.name}</h1>
                     <h2 id="product-h2">R$ ${prod.price.toFixed(2)}</h3>
@@ -211,7 +354,8 @@ function filtrarCor(){
 }
 
 coresEle.addEventListener("click", filtrarCor);
-
+tamanhosEle.addEventListener("click", filtrartamanho)
+priceEle.addEventListener("click", filtrarprice)
 
 
 
