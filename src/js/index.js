@@ -304,23 +304,29 @@ function filtrarprice(){ // NÃO ESTÁ FUNCIONANDO
     const opcoesprice = document.getElementsByName("price");
 
     const priceAtiva = [];
-   
+    let min = []
+    let max = []
     opcoesprice.forEach(element => {
-
+      
         if(element.checked){
+            min = []
+            max = [] 
             priceAtiva.push(element.value)
+            min.push(element.min)
+            max.push(element.max)
             
         } 
-        console.log(priceAtiva)
-    });
+        });
+        console.log(min, max)
 
     let produto = '';
 
     if(priceAtiva.length != 0){
+        
         products.forEach((prod) => {
             
             
-            if(priceAtiva.includes(prod.price)){
+            if(prod.price >= min && prod.price <= max){
                 let parcela = prod.price / prod.parcelamento[0];
                 produto += `
                     <div class="productos">
